@@ -1,0 +1,42 @@
+.folder-container {
+    display: flex;
+    width: 268px;
+    max-height: 81px;
+    padding: var(--16-px, 16px);
+    align-items: center;
+    gap: var(--16-px, 16px);
+    border-radius: var(--8-px, 8px);
+    background: #F3F4FD;
+}
+
+.folder-container:hover {
+    background: #e2e5fc;
+}
+
+.folder-container:active {
+    background: #F3F4FD;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.folder-title {
+    color: var(--Wire-Colors-900, #07080E);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.14px;
+}
+
+.folder-subtitle {
+    color: var(--Wire-Colors-300, #7C7E8F);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -0.12px;
+}
