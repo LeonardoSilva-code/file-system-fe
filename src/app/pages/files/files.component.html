@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-end">
         <div class="buttom-position">
             <div class="search-input-container">
-                <input type="text" placeholder="Pesquisar" class="search-input" />
+                <input type="text" placeholder="Pesquisar" class="search-input" (input)="onSearch($event)"/>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
                         <path fill="#3C479D"
@@ -40,7 +40,7 @@
   <div class="mt-5">
     <nav aria-label="breadcrumb" *ngIf="breadcrumbs?.length > 1">
         <ol class="breadcrumb breadcrumb-bg" style="background-color: #F3F4FD;">
-            <li class="breadcrumb-item datlaz-text prevent-select" *ngFor="let breadcrumb of breadcrumbs">
+            <li class="breadcrumb-item breadcrumb-text prevent-select" *ngFor="let breadcrumb of breadcrumbs">
                 <a class="breadcrumb-title cursor-pointer"  (click)="redirect(breadcrumb)"
                     *ngIf="!breadcrumb.active">{{breadcrumb.name}}</a>
                 <a class="breadcrumb-title active" style="font-weight: 800;" *ngIf="breadcrumb.active">{{breadcrumb.name}}</a>
@@ -52,7 +52,7 @@
 <div class="ml-10 mr-10 mt-5 w-auto">
     <div class="row">
         <p class="card-grid-title mb-5">Pastas</p>
-        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.directoryItems$ | async"> 
+        <div class="col-auto mb-3" *ngFor="let file of filteredDirectories"> 
             <app-folder-card [folder]="file"></app-folder-card>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </div>
     <div class="row">
         <p class="card-grid-title mb-5">Arquivos</p>
-        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.fileItems$ | async"> 
+        <div class="col-auto mb-3" *ngFor="let file of filteredFiles"> 
                  <app-file-card [file]="file"></app-file-card>
         </div>
     </div>

@@ -10,9 +10,10 @@
               </div>
               <div class="d-flex flex-column p-2">
                 <div class="folder-title prevent-select">
-                  {{folder.name}}
+                  {{ folder?.name | slice:0:11}} {{ folder?.name?.length >
+                    11 ? '...' : '' }}
                 </div>
-                <div class="folder-subtitle prevent-select">Editado em {{folder.updatedDate | date}}</div>
+                <div class="folder-subtitle prevent-select">Editado em {{folder.updatedDate | date: 'dd/MM/yy' }}</div>
             </div>
           </div>
         </div>
@@ -28,7 +29,7 @@
 
 
     <mat-menu #belowMenu="matMenu" yPosition="below">
-        <div mat-menu-item>
+        <div mat-menu-item (click)="rename()">
           <a>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path

@@ -5,7 +5,8 @@ import { CreateDirectoryModalComponent } from 'src/app/components/create-directo
 import { CreateFileModalComponent } from 'src/app/components/create-file-modal/create-file-modal.component';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { FileSystemService } from 'src/app/services/file-system.service';
-
+import { FileDTO } from 'src/app/models/file.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-files',
@@ -14,37 +15,65 @@ import { FileSystemService } from 'src/app/services/file-system.service';
 })
 export class FilesComponent implements OnInit {
 
-  parentFolderId: any
-  breadcrumbs: any[] = []
+  parentFolderId: any;
+  breadcrumbs: any[] = [];
+  filteredDirectories: FileDTO[] = [];
+  filteredFiles: FileDTO[] = [];
+  
+  private allDirectories: FileDTO[] = [];
+  private allFiles: FileDTO[] = [];
 
   constructor(private modalService: NgbModal, 
               protected fileSystemService: FileSystemService,
               private breadcrumbService: BreadcrumbService,
               private route: ActivatedRoute,
-              private router: Router,){
-
-  }
+              private router: Router){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async (params) => {
       this.parentFolderId = params.get("id");
       if(!this.parentFolderId){
-        this.fileSystemService.getRootFiles()
+        this.fileSystemService.getRootFiles();
       }else{
-        this.fileSystemService.getById(this.parentFolderId)
+        this.breadcrumbService.refreshBreadcrumb(this.parentFolderId);
+        this.fileSystemService.getById(this.parentFolderId);
       }
-    })
+    });
+
+    this.fileSystemService.directoryItems$.subscribe((directories) => {
+      this.allDirectories = directories;
+      this.filteredDirectories = directories; // Inicialmente, exibe todas as pastas
+    });
+
+    this.fileSystemService.fileItems$.subscribe((files) => {
+      this.allFiles = files;
+      this.filteredFiles = files; // Inicialmente, exibe todos os arquivos
+    });
+
     this.breadcrumbService.breadcrumbDataSource$.subscribe(breadcrumbs => {
-      this.breadcrumbs = breadcrumbs
-    })
+      this.breadcrumbs = breadcrumbs;
+    });
+  }
+
+  onSearch(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const searchTerm = inputElement.value.toLowerCase();;
+    const lowerCaseSearchText = searchTerm.toLowerCase();
     
+    // Filtra os diretórios e arquivos
+    this.filteredDirectories = this.allDirectories.filter(directory => 
+      directory.name.toLowerCase().includes(lowerCaseSearchText)
+    );
+    this.filteredFiles = this.allFiles.filter(file => 
+      file.name.toLowerCase().includes(lowerCaseSearchText)
+    );
   }
 
   openCreateFolderModal() {
     const modalRef = this.modalService.open(CreateDirectoryModalComponent, { windowClass: "modalContainerSizeClass" });
     modalRef.componentInstance.parentFolderId = this.parentFolderId;
     modalRef.result.then(
-      () => {  this.refreshFolder() },
+      () => { this.refreshFolder() },
       () => {}
     );
   }
@@ -53,22 +82,21 @@ export class FilesComponent implements OnInit {
     const modalRef = this.modalService.open(CreateFileModalComponent, { windowClass: "modalContainerSizeClass" });
     modalRef.componentInstance.parentFolderId = this.parentFolderId;
     modalRef.result.then(
-      () => {  this.refreshFolder() },
+      () => { this.refreshFolder() },
       () => {}
     );
   }
 
   refreshFolder(){
     if(this.parentFolderId){
-      this.fileSystemService.getById(this.parentFolderId)
+      this.fileSystemService.getById(this.parentFolderId);
     }else{
-      this.fileSystemService.getRootFiles()
+      this.fileSystemService.getRootFiles();
     }
   }
 
-  
   redirect(breadcrumb: any) {
-      this.breadcrumbService.updatebreadcrumbBy(this.breadcrumbs, breadcrumb)
-      this.router.navigate([breadcrumb.route])
-    }
+    this.breadcrumbService.updatebreadcrumbBy(this.breadcrumbs, breadcrumb);
+    this.router.navigate([breadcrumb.route]);
+  }
 }

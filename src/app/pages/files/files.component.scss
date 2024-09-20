@@ -79,3 +79,17 @@ input[type="text"] {
 .buttom-position{
     margin-right: 1%;
 }
+
+.breadcrumb-title {
+  color: var(--Wire-Colors-900, #07080E);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+  letter-spacing: -0.14px;
+}
+
+.breadcrumb-item:hover>a {
+  color: #3C479D !important;
+}

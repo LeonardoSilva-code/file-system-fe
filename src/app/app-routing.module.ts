@@ -9,8 +9,9 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-      path: "",
-      component: FilesComponent
+        path: "",
+        redirectTo: "files",
+        pathMatch: "full"
       },
       {
         path: "files",

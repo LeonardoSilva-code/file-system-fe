@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FileSystemService } from 'src/app/services/file-system.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,31 @@ export class BreadcrumbService {
     return this._breadcrumbDataSource$.asObservable();
   }
 
+  constructor(private fileSystemService: FileSystemService) {
+  }
 
-
-  constructor() {
+  refreshBreadcrumb(directoryId: string){
+    const breadcrumbUnparsed = sessionStorage.getItem(this.breadcrumbId);
+    if (breadcrumbUnparsed) {
+      const breadcrumb = JSON.parse(breadcrumbUnparsed)
+      if(breadcrumb.length < 2){
+          this.fileSystemService.getBreadcrumb(directoryId).subscribe({
+            next: (n) => {
+              for(const item of n){
+                breadcrumb.push({
+                  id: item.id,
+                  name: item.name,
+                  route: `/files/${item.id}`
+                })
+              }
+              this.removeBreadcrumbsAfter(breadcrumb, breadcrumb.id)
+              this.updateActiveStatus(breadcrumb)
+              sessionStorage.setItem(this.breadcrumbId, JSON.stringify(breadcrumb));
+              this._breadcrumbDataSource$.next(breadcrumb)
+            }
+          })
+      }
+    }
   }
 
   initbreadcrumb() {
@@ -37,7 +60,6 @@ export class BreadcrumbService {
   }
 
   addDocumentBreadcrumbItem(breadcrumbInput: any) {
-    console.log(breadcrumbInput)
     const breadcrumbUnparsed = sessionStorage.getItem(this.breadcrumbId);
     if (breadcrumbUnparsed) {
       const breadcrumb = JSON.parse(breadcrumbUnparsed)

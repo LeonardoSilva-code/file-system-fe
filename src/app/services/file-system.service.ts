@@ -26,6 +26,10 @@ import { BehaviorSubject } from "rxjs";
       return this._fileItems$.asObservable();
     }
 
+    getBreadcrumb(directoryId: string){
+      return this.http.get<any[]>(`${this.API_URL}/breadcrumb/${directoryId}`)
+    }
+
     getRootFiles(){
       this.http.get<FileDTO[]>(`${this.API_URL}/root`).subscribe({
         next: (n) => {
@@ -52,6 +56,15 @@ import { BehaviorSubject } from "rxjs";
 
     createFile(input: CreateFileDTO){
       return this.http.post(`${this.API_URL}/file`, input)
+    }
+
+    patchDirectory(input: CreateDirectoryDTO, directoryId: string){
+      return this.http.patch(`${this.API_URL}/directory/${directoryId}`, input)
+    }
+
+    
+    patchFile(input: CreateFileDTO, fileId: string){
+      return this.http.patch(`${this.API_URL}/file/${fileId}`, input)
     }
 
     deleteDirectory(directoryId: string){

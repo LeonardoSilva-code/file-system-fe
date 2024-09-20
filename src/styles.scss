@@ -1,5 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+
 .layout-container{
     margin-top: 3%;
     margin-left: 5%;
@@ -91,3 +92,85 @@
   color: #FFF;
   opacity: 1;
 }
+
+
+.breadcrumb-text {
+  color: #07080E;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 18.20px;
+  word-wrap: break-word;
+  letter-spacing: -0.14px;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+}
+
+.breadcrumb {
+  align-items: center;
+
+  .breadcrumb-item {
+      display: flex;
+      
+      a {
+          display: flex;
+          align-items: center;
+      }
+
+      &.active,
+      &:hover {
+          i,
+          a {
+              transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease ;
+              color: #3699FF !important;
+          }
+      }
+  }
+
+  &.breadcrumb-transparent {
+      background-color: transparent;
+      border-radius: 0;
+  }
+
+  &.breadcrumb-line {
+      .breadcrumb-item {
+          &:before {
+              display: none;
+          }
+
+          &:after {
+              content: "-";
+          }
+
+          &:last-child {
+              &:after {
+                  display: none;
+              }
+          }
+      }
+  }
+
+  &.breadcrumb-dot {
+      .breadcrumb-item {
+          &:before {
+              display: none;
+          }
+
+          &:after {
+              content: "\2022";
+          }
+
+          &:last-child {
+              &:after {
+                  display: none;
+              }
+          }
+      }
+  }
+}
+
+

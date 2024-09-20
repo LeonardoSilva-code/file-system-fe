@@ -1,5 +1,7 @@
     <div class="modal-header modal-title-text" style="border: 0px;">
-        Nova Pasta
+        <p *ngIf="!isEditionMode">Nova Pasta</p>
+        <p *ngIf="isEditionMode">Novo nome</p>
+        
     </div>
     <form [formGroup]="formGroup">
         <div class="overlay overlay-block cursor-default modal-body pt-0 pb-0">
@@ -11,7 +13,7 @@
                 Cancelar
             </button>
             <button type="submit" [disabled]="!formGroup.valid" class="btn-confirm" (click)="save()">
-                Criar
+                Salvar
             </button>
         </div>
     </form>
