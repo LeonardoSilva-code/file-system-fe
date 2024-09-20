@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { FileCardComponent } from './components/file-card/file-card.component';
 import { CreateFileModalComponent } from './components/create-file-modal/create-file-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateFileModalComponent
   ],
   imports: [
+    HttpClientModule  ,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,

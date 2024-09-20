@@ -41,7 +41,7 @@
 <div class="ml-10 mr-10 mt-5 w-auto">
     <div class="row">
         <p class="card-grid-title mb-5">Pastas</p>
-        <div class="col-auto mb-3" *ngFor="let file of files$ | async"> 
+        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.items$ | async"> 
          <div *ngIf="file.type == 'FOLDER'">
             <app-folder-card [folder]="file"></app-folder-card>
         </div>
@@ -54,7 +54,7 @@
         </div>
     <div class="row">
         <p class="card-grid-title mb-5">Arquivos</p>
-        <div class="col-auto mb-3" *ngFor="let file of files$ | async"> 
+        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.items$ | async"> 
             <div *ngIf="file.type == 'FILE'">
                  <app-file-card [file]="file"></app-file-card>
             </div>
