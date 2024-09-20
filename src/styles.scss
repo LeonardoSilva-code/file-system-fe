@@ -6,3 +6,88 @@
     margin-right: 5%;
     margin-bottom: 3%;
 }
+
+.component-content-container {
+    overflow-y: scroll;
+    height: 90vh;
+  }
+
+.card-grid-title {
+    color: #231F20;
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 24px;
+    word-wrap: break-word;
+    /* 27px */
+    letter-spacing: -0.18px;
+    margin-top: 3px;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+  }
+
+.modal-title-text {
+  overflow: hidden;
+  color: var( #231F20);
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.14px;
+}
+
+.btn-cancel {
+  display: flex;
+  height: 40px;
+  padding: var(--12-px, 12px) var(--16-px, 16px);
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+  border-radius: var(--6-px, 6px);
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  color: #7E8299;
+  background-color: #F3F6F9;
+  border-color: #F3F6F9;
+  opacity: 0.8;
+}
+
+.btn-cancel:hover {
+  opacity: 1;
+}
+
+.btn-confirm {
+  display: flex;
+  height: 40px;
+  min-width: 94px;
+  padding: var(--12-px, 12px) var(--16-px, 16px);
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+  border-radius: var(--6-px, 6px);
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  color: #FFF;
+  background-color: #3C479D;
+  border-color: #3C479D;
+  opacity: 0.8;
+}
+
+.btn-confirm:hover {
+  color: #FFF;
+  opacity: 1;
+}

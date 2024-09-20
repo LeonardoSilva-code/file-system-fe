@@ -11,15 +11,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FolderCardComponent } from './components/folder-card/folder-card.component';
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
+import { CommonModule } from '@angular/common';
+import { FileCardComponent } from './components/file-card/file-card.component';
+import { CreateFileModalComponent } from './components/create-file-modal/create-file-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     FilesComponent,
-    FolderCardComponent
+    FolderCardComponent,
+    FileCardComponent,
+    CreateFileModalComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     MatMenuModule,
     MatButtonModule,
     MatToolbarModule,

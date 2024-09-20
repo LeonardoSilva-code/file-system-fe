@@ -1,17 +1,19 @@
-<div class="folder-container cursor-pointer">
+<div class="folder-container cursor-pointer d-flex flex-row">
     <div class="d-flex flex-row w-100">
         <div class="d-flex align-items-center mr-3 cursor-pointer">
-            <div class="d-flex p-2">
+            <div class="d-flex flex-column p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                   <path
                     d="M20.25 7.35791H12.2334L9.61781 4.74229C9.49611 4.62016 9.35145 4.52333 9.19216 4.45736C9.03287 4.39139 8.8621 4.35759 8.68969 4.35791H3.75C3.4019 4.35791 3.06806 4.49619 2.82192 4.74233C2.57578 4.98848 2.4375 5.32232 2.4375 5.67041V19.2285C2.43775 19.5611 2.56999 19.8801 2.80517 20.1152C3.04036 20.3504 3.35927 20.4827 3.69188 20.4829H20.3334C20.6593 20.4827 20.9718 20.3531 21.2022 20.1227C21.4327 19.8922 21.5623 19.5797 21.5625 19.2539V8.67041C21.5625 8.32232 21.4242 7.98848 21.1781 7.74233C20.9319 7.49619 20.5981 7.35791 20.25 7.35791ZM3.75 5.48291H8.68969C8.73934 5.48312 8.78687 5.50301 8.82187 5.53823L10.6416 7.35791H3.5625V5.67041C3.5625 5.62068 3.58225 5.57299 3.61742 5.53783C3.65258 5.50267 3.70027 5.48291 3.75 5.48291ZM20.4375 19.2539C20.4375 19.2815 20.4265 19.3079 20.407 19.3274C20.3875 19.3469 20.361 19.3579 20.3334 19.3579H3.69188C3.65771 19.3574 3.62509 19.3436 3.60093 19.3195C3.57677 19.2953 3.56298 19.2627 3.5625 19.2285V8.48291H20.25C20.2997 8.48291 20.3474 8.50267 20.3826 8.53783C20.4177 8.57299 20.4375 8.62068 20.4375 8.67041V19.2539Z"
                     fill="#3C479D" />
                 </svg>
               </div>
-              <div class="folder-title prevent-select">
-            This is some text within a card body.
-        </div>
-        <div class="ml-auto">
+              <div class="d-flex flex-column p-2">
+                <div class="folder-title prevent-select">
+                  {{folder.name}}
+                </div>
+            </div>
+        <div class="butom-margim d-flex flex-column p-2">
             <button class="btn" mat-button [matMenuTriggerFor]="belowMenu">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                 <path
@@ -20,6 +22,7 @@
               </svg>
             </button>
         </div>
+
     </div>
     <mat-menu #belowMenu="matMenu" yPosition="below">
         <div mat-menu-item>
@@ -43,8 +46,6 @@
           </a>
         </div>
       </mat-menu>
-
-
 </div>
 </div>
 
