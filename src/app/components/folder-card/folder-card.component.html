@@ -1,5 +1,5 @@
 <div class="folder-container cursor-pointer d-flex flex-row">
-    <div class="d-flex flex-row w-100">
+    <div class="d-flex flex-row w-100" (click)="openFolder()">
         <div class="d-flex align-items-center mr-3 cursor-pointer">
             <div class="d-flex flex-column p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -12,7 +12,10 @@
                 <div class="folder-title prevent-select">
                   {{folder.name}}
                 </div>
+                <div class="folder-subtitle prevent-select">Editado em {{folder.updatedDate | date}}</div>
             </div>
+          </div>
+        </div>
         <div class="butom-margim d-flex flex-column p-2">
             <button class="btn" mat-button [matMenuTriggerFor]="belowMenu">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -21,9 +24,9 @@
                   fill="black" fill-opacity="0.8" />
               </svg>
             </button>
-        </div>
+       
 
-    </div>
+
     <mat-menu #belowMenu="matMenu" yPosition="below">
         <div mat-menu-item>
           <a>

@@ -9,9 +9,17 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-      path: "files",
+      path: "",
       component: FilesComponent
-      }
+      },
+      {
+        path: "files",
+        component: FilesComponent
+        },
+      {
+        path: "files/:id",
+        component: FilesComponent
+        }
     ]
   },
 ];

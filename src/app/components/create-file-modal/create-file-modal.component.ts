@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateDirectoryDTO } from 'src/app/models/file.model';
+import { CreateFileDTO } from 'src/app/models/file.model';
 import { FileSystemService } from 'src/app/services/file-system.service';
 
 @Component({
@@ -11,35 +11,42 @@ import { FileSystemService } from 'src/app/services/file-system.service';
 })
 export class CreateFileModalComponent implements OnInit {
 
+  @Input() parentFolderId: string
   formGroup: UntypedFormGroup;
   
   constructor(private fb: UntypedFormBuilder,
               private fileSystemService: FileSystemService,
               public modal: NgbActiveModal,){
-    
   }
 
-  
   ngOnInit(): void {
     this.initForm()
   }
 
   initForm() {
     this.formGroup = this.fb.group({
-      name: ["", Validators.required]
+      name: ["", Validators.required],
+      sizeInBytes: ["", Validators.required],
+      extension: ["", Validators.required],
     })
   }
 
   save(){
-    const body: CreateDirectoryDTO = {
-        name: this.formGroup.get('name').value,
+    let body: CreateFileDTO = {
+      name: this.formGroup.get('name')?.value,
+      sizeInBytes: this.formGroup.get('sizeInBytes')?.value,
+      extension: this.formGroup.get('extension')?.value
     }
-    this.fileSystemService.createDirectory(body).subscribe({
+    if(this.parentFolderId){
+      body['parentId'] = this.parentFolderId
+    }
+    this.fileSystemService.createFile(body).subscribe({
       next: (n) => {
         this.modal.close();
       },
       error: (e) => {},
     })
   }
+
 
 }

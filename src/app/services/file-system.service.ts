@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { CreateDirectoryDTO, FileDTO } from "src/app/models/file.model";
+import { CreateDirectoryDTO, CreateFileDTO, FileDTO, FileSystemType } from "src/app/models/file.model";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -11,19 +11,37 @@ import { BehaviorSubject } from "rxjs";
 
     API_URL = `${environment.apiUrl}/api/filesystem`;
     private http: HttpClient;
-    private _items$ = new BehaviorSubject<FileDTO[]>([]);
+    private _directoryItems$ = new BehaviorSubject<FileDTO[]>([]);
+    private _fileItems$ = new BehaviorSubject<FileDTO[]>([]);
 
     constructor(@Inject(HttpClient) http: HttpClient) {
       this.http = http
     }
 
-    get items$() {
-      return this._items$.asObservable();
+    get directoryItems$() {
+      return this._directoryItems$.asObservable();
+    }
+
+    get fileItems$() {
+      return this._fileItems$.asObservable();
     }
 
     getRootFiles(){
       this.http.get<FileDTO[]>(`${this.API_URL}/root`).subscribe({
-        next: (n) => this._items$.next(n),
+        next: (n) => {
+          this._directoryItems$.next(n.filter(d => d.type == FileSystemType.FOLDER))
+          this._fileItems$.next(n.filter(d => d.type == FileSystemType.FILE))
+        },
+        error: (e) => {}
+      })
+    }
+
+    getById(id: string){
+      this.http.get<FileDTO[]>(`${this.API_URL}/directory/${id}`).subscribe({
+        next: (n) => {
+          this._directoryItems$.next(n.filter(d => d.type == FileSystemType.FOLDER))
+          this._fileItems$.next(n.filter(d => d.type == FileSystemType.FILE))
+        },
         error: (e) => {}
       })
     }
@@ -32,8 +50,16 @@ import { BehaviorSubject } from "rxjs";
       return this.http.post(`${this.API_URL}/directory`, input)
     }
 
+    createFile(input: CreateFileDTO){
+      return this.http.post(`${this.API_URL}/file`, input)
+    }
+
     deleteDirectory(directoryId: string){
       return this.http.delete(`${this.API_URL}/directory/${directoryId}`)
+    }
+
+    deleteFile(fileId: string){
+      return this.http.delete(`${this.API_URL}/file/${fileId}`)
     }
   
 

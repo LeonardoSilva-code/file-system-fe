@@ -13,9 +13,10 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { CommonModule } from '@angular/common';
 import { FileCardComponent } from './components/file-card/file-card.component';
-import { CreateFileModalComponent } from './components/create-file-modal/create-file-modal.component';
+import { CreateDirectoryModalComponent } from './components/create-directory-modal/create-directory-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateFileModalComponent } from './components/create-file-modal/create-file-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     FilesComponent,
     FolderCardComponent,
     FileCardComponent,
+    CreateDirectoryModalComponent,
     CreateFileModalComponent
   ],
   imports: [
-    HttpClientModule  ,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,

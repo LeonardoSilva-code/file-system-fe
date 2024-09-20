@@ -14,6 +14,19 @@ export interface CreateDirectoryDTO{
     parentId?: string
 }
 
+export interface CreateFileDTO{
+    name: string,
+    parentId?: string
+    sizeInBytes: number
+    extension: string
+}
+
+export class BreadcrumbItemModel {
+    title: string;
+    linkText: string;
+    linkPath: string;
+  }
+
 export enum FileSystemType{
     FOLDER = "FOLDER",
     FILE = "FILE"

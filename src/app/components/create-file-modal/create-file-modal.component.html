@@ -1,17 +1,21 @@
-    <div class="modal-header modal-title-text" style="border: 0px;">
-        Nova Pasta
+<div class="modal-header modal-title-text" style="border: 0px;">
+    Novo Arquivo
+</div>
+<form [formGroup]="formGroup">
+    <div class="overlay overlay-block cursor-default modal-body pt-0 pb-0">
+        <input type="text" class="form-control form-control-lg form-control-solid" name="name" 
+            placeholder="Nome do arquivo" formControlName="name" />
+            <input type="number" class="form-control mt-3 form-control-lg form-control-solid" name="name" 
+            placeholder="Tamanho" formControlName="sizeInBytes" />
+            <input type="text" class="form-control mt-3 form-control-lg form-control-solid" name="name" 
+            placeholder="Extensão" formControlName="extension" />
     </div>
-    <form [formGroup]="formGroup">
-        <div class="overlay overlay-block cursor-default modal-body pt-0 pb-0">
-            <input type="text" class="form-control form-control-lg form-control-solid" name="name" 
-                placeholder="Nome da pasta" formControlName="name" />
-        </div>
-        <div class="modal-footer" style=" gap: 8px;border-top: 0px;">
-            <button type="button" class="btn-cancel" (click)="modal.dismiss()">
-                Cancelar
-            </button>
-            <button type="submit" class="btn-confirm" (click)="save()">
-                Criar
-            </button>
-        </div>
-    </form>
+    <div class="modal-footer" style=" gap: 8px;border-top: 0px;">
+        <button type="button" class="btn-cancel" (click)="modal.dismiss()">
+            Cancelar
+        </button>
+        <button type="submit" [disabled]="!formGroup.valid" class="btn-confirm" (click)="save()">
+            Criar
+        </button>
+    </div>
+</form>

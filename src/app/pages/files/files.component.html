@@ -24,7 +24,7 @@
         </button>
           </div>
           <div class="buttom-position">
-            <button class="white-btn">
+            <button class="white-btn" (click)="openCreateFileModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M21 12C21 12.1989 20.921 12.3897 20.7803 12.5303C20.6397 12.671 20.4489 12.75 20.25 12.75H12.75V20.25C12.75 20.4489 12.671 20.6397 12.5303 20.7803C12.3897 20.921 12.1989 21 12 21C11.8011 21 11.6103 20.921 11.4697 20.7803C11.329 20.6397 11.25 20.4489 11.25 20.25V12.75H3.75C3.55109 12.75 3.36032 12.671 3.21967 12.5303C3.07902 12.3897 3 12.1989 3 12C3 11.8011 3.07902 11.6103 3.21967 11.4697C3.36032 11.329 3.55109 11.25 3.75 11.25H11.25V3.75C11.25 3.55109 11.329 3.36032 11.4697 3.21967C11.6103 3.07902 11.8011 3 12 3C12.1989 3 12.3897 3.07902 12.5303 3.21967C12.671 3.36032 12.75 3.55109 12.75 3.75V11.25H20.25C20.4489 11.25 20.6397 11.329 20.7803 11.4697C20.921 11.6103 21 11.8011 21 12Z"
@@ -35,16 +35,25 @@
                 </p>
             </button>
           </div>
+  </div>
 
+  <div class="mt-5">
+    <nav aria-label="breadcrumb" *ngIf="breadcrumbs?.length > 1">
+        <ol class="breadcrumb breadcrumb-bg" style="background-color: #F3F4FD;">
+            <li class="breadcrumb-item datlaz-text prevent-select" *ngFor="let breadcrumb of breadcrumbs">
+                <a class="breadcrumb-title cursor-pointer"  (click)="redirect(breadcrumb)"
+                    *ngIf="!breadcrumb.active">{{breadcrumb.name}}</a>
+                <a class="breadcrumb-title active" style="font-weight: 800;" *ngIf="breadcrumb.active">{{breadcrumb.name}}</a>
+            </li>
+        </ol>
+    </nav>
   </div>
 
 <div class="ml-10 mr-10 mt-5 w-auto">
     <div class="row">
         <p class="card-grid-title mb-5">Pastas</p>
-        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.items$ | async"> 
-         <div *ngIf="file.type == 'FOLDER'">
+        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.directoryItems$ | async"> 
             <app-folder-card [folder]="file"></app-folder-card>
-        </div>
         </div>
     </div>
         <div class="d-flex w-100 mt-5 mb-5" style="background: #F3F4FD;">
@@ -54,10 +63,8 @@
         </div>
     <div class="row">
         <p class="card-grid-title mb-5">Arquivos</p>
-        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.items$ | async"> 
-            <div *ngIf="file.type == 'FILE'">
+        <div class="col-auto mb-3" *ngFor="let file of fileSystemService.fileItems$ | async"> 
                  <app-file-card [file]="file"></app-file-card>
-            </div>
         </div>
     </div>
 </div>
