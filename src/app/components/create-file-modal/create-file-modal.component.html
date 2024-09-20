@@ -4,11 +4,41 @@
 <form [formGroup]="formGroup">
     <div class="overlay overlay-block cursor-default modal-body pt-0 pb-0">
         <input type="text" class="form-control form-control-lg form-control-solid" name="name" 
-            placeholder="Nome do arquivo" formControlName="name" />
-            <input type="number" class="form-control mt-3 form-control-lg form-control-solid" name="name" 
-            placeholder="Tamanho" formControlName="sizeInBytes" />
-            <input type="text" class="form-control mt-3 form-control-lg form-control-solid" name="name" 
-            placeholder="Extensão" formControlName="extension" />
+            placeholder="Nome do arquivo" formControlName="name" [class.is-invalid]="isControlInvalid('name')"
+            [class.is-valid]="isControlValid('name')" />
+            <div
+            class="invalid-feedback"
+            *ngIf="controlHasError('required', 'name')"
+          >  Nome é obrigatório
+          </div>
+          <div
+          class="invalid-feedback"
+          *ngIf="controlHasError('maxlength', 'name')"
+        >  Não deve passar de 50 caráteres
+        </div>
+
+            <input type="number" class="form-control mt-3 form-control-lg form-control-solid" name="sizeInBytes" 
+            placeholder="Tamanho" formControlName="sizeInBytes" [class.is-invalid]="isControlInvalid('sizeInBytes')"
+            [class.is-valid]="isControlValid('sizeInBytes')"/>
+        <div
+            class="invalid-feedback"
+            *ngIf="controlHasError('required', 'sizeInBytes')"
+          >  Tamanho é é obrigatório
+          </div>
+
+            <input type="text" class="form-control mt-3 form-control-lg form-control-solid" name="extension" 
+            placeholder="Extensão" formControlName="extension" [class.is-invalid]="isControlInvalid('extension')"
+            [class.is-valid]="isControlValid('extension')"/>
+            <div
+            class="invalid-feedback"
+            *ngIf="controlHasError('required', 'extension')"
+          >  Extensão é obrigatório
+          </div>
+          <div
+          class="invalid-feedback"
+          *ngIf="controlHasError('maxlength', 'extension')"
+        >  Não deve passar de 10 caráteres
+        </div>
     </div>
     <div class="modal-footer" style=" gap: 8px;border-top: 0px;">
         <button type="button" class="btn-cancel" (click)="modal.dismiss()">

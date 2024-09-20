@@ -17,6 +17,7 @@ import { CreateDirectoryModalComponent } from './components/create-directory-mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateFileModalComponent } from './components/create-file-modal/create-file-modal.component';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CreateFileModalComponent } from './components/create-file-modal/create-
     FolderCardComponent,
     FileCardComponent,
     CreateDirectoryModalComponent,
-    CreateFileModalComponent
+    CreateFileModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     HttpClientModule,

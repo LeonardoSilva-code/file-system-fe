@@ -6,7 +6,6 @@ import { CreateFileModalComponent } from 'src/app/components/create-file-modal/c
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { FileSystemService } from 'src/app/services/file-system.service';
 import { FileDTO } from 'src/app/models/file.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-files',
@@ -42,12 +41,12 @@ export class FilesComponent implements OnInit {
 
     this.fileSystemService.directoryItems$.subscribe((directories) => {
       this.allDirectories = directories;
-      this.filteredDirectories = directories; // Inicialmente, exibe todas as pastas
+      this.filteredDirectories = directories;
     });
 
     this.fileSystemService.fileItems$.subscribe((files) => {
       this.allFiles = files;
-      this.filteredFiles = files; // Inicialmente, exibe todos os arquivos
+      this.filteredFiles = files;
     });
 
     this.breadcrumbService.breadcrumbDataSource$.subscribe(breadcrumbs => {
@@ -60,7 +59,6 @@ export class FilesComponent implements OnInit {
     const searchTerm = inputElement.value.toLowerCase();;
     const lowerCaseSearchText = searchTerm.toLowerCase();
     
-    // Filtra os diretórios e arquivos
     this.filteredDirectories = this.allDirectories.filter(directory => 
       directory.name.toLowerCase().includes(lowerCaseSearchText)
     );

@@ -173,4 +173,29 @@
   }
 }
 
+.form-group {
+	label {
+		font-size: 1rem;
+		font-weight: 400;
+		color: #3F4254;
+	}
+
+	.invalid-feedback,
+	.valid-feedback {
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
+
+	.form-text {
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
+}
+
+.validated {
+	.valid-feedback,
+	.invalid-feedback {
+		display: block;
+	}
+}
 

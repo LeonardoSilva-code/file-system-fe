@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { catchError, of } from 'rxjs';
+import { ErrorModalComponent } from 'src/app/components/error-modal/error-modal.component';
 import { CreateDirectoryDTO, FileDTO } from 'src/app/models/file.model';
 import { FileSystemService } from 'src/app/services/file-system.service';
 
@@ -18,7 +21,8 @@ export class CreateDirectoryModalComponent implements OnInit {
   
   constructor(private fb: UntypedFormBuilder,
               private fileSystemService: FileSystemService,
-              public modal: NgbActiveModal,){
+              public modal: NgbActiveModal,
+              private modalService: NgbModal, ){
   }
 
   
@@ -58,7 +62,11 @@ export class CreateDirectoryModalComponent implements OnInit {
       next: (n) => {
         this.modal.close();
       },
-      error: (e) => {},
+      error: (e: HttpErrorResponse) => {
+       if(e.status == 409){
+        this.openErrorModal("Já existe uma pasta com esse nome")
+       }
+      },
     })
   }
   
@@ -67,7 +75,41 @@ export class CreateDirectoryModalComponent implements OnInit {
       next: (n) => {
         this.modal.close();
       },
-      error: (e) => {},
+      error: (e) => {
+        if(e.status == 409){
+          this.openErrorModal("Já existe uma pasta com esse nome")
+         }
+      },
     })
   }
+
+  openErrorModal(message: string) {
+    const modalRef = this.modalService.open(ErrorModalComponent);
+    modalRef.componentInstance.errorMessage = message
+    modalRef.result.then(
+      () => { this.modal.close() },
+      () => { this.modal.close() }
+    );
+  }
+
+  isControlValid(controlName: string): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.valid && (control.dirty || control.touched);
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.invalid && (control.dirty || control.touched);
+  }
+
+  controlHasError(validation: string, controlName: string | number): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.hasError(validation) && (control.dirty || control.touched);
+  }
+
+  isControlTouched(controlName: string | number): boolean {
+    const control = this.formGroup.controls[controlName];
+    return control.dirty || control.touched;
+  }
+  
 }

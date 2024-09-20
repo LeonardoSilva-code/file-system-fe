@@ -6,7 +6,19 @@
     <form [formGroup]="formGroup">
         <div class="overlay overlay-block cursor-default modal-body pt-0 pb-0">
             <input type="text" class="form-control form-control-lg form-control-solid" name="name" 
-                placeholder="Nome da pasta" formControlName="name" />
+                placeholder="Nome da pasta" formControlName="name"               
+                [class.is-invalid]="isControlInvalid('name')"
+                [class.is-valid]="isControlValid('name')"/>
+                <div
+                class="invalid-feedback"
+                *ngIf="controlHasError('required', 'name')"
+              >  Nome é obrigatório
+              </div>
+              <div
+              class="invalid-feedback"
+              *ngIf="controlHasError('maxlength', 'name')"
+            >  Não deve passar de 50 caráteres
+            </div>
         </div>
         <div class="modal-footer" style=" gap: 8px;border-top: 0px;">
             <button type="button" class="btn-cancel" (click)="modal.dismiss()">
