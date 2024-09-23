@@ -1,27 +1,53 @@
-# FileSystemFe
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.3.
+# File System Front-end
 
-## Development server
+Este projeto foi gerado usando o Angular CLI na versão 15.0.3. Ele é projetado para gerenciar e interagir com um sistema de arquivos por meio de uma aplicação front-end.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Rodando localmente
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Pré-requisitos
 
-## Build
+- Node.js (versão 16.x ou superior)
+- Angular CLI (versão 15.x)
+- Um navegador da web (Google Chrome, Firefox, etc.)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+Clonar o repositório:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+ git clone https://github.com/LeonardoSilva-code/file-system-fe.git
+ cd file-system-fe
+```
+Instalar dependências:
+```bash
+npm install
+```
+Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
+```bash
+npm run start
+```
 
-## Running end-to-end tests
+### Rodando utilizando docker
+Faça build da imagem
+```bash
+docker build -t file-system-fe .
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Rode o container na porta 4200
+```bash
+docker run -p 4200:4200 file-system-fe
+```
 
-## Further help
+Acessar o sistema: O sistema será executado localmente no endereço:
+```bash
+http://localhost:4200
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`apiUrl: "http://localhost:8080"`
+
